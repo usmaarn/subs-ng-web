@@ -22,7 +22,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import {
   TransactionIcon,
   TransactionStatusBadge,
-} from "@/components/app/transactions/transaction-display";
+} from "@/components/dashboard/transactions/transaction-display";
 import { formatNaira } from "@/lib/format";
 import type { Transaction } from "@/lib/types";
 

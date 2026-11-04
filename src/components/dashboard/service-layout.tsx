@@ -9,7 +9,7 @@ type ServiceLayoutProps = {
 
 export function ServiceLayout({ form, summary }: ServiceLayoutProps) {
   return (
-    <div className="grid w-full max-w-5xl items-start gap-4 lg:grid-cols-[minmax(0,1fr)_340px]">
+    <div className="mx-auto grid w-full max-w-5xl items-start gap-4 lg:grid-cols-[minmax(0,1fr)_340px]">
       <Card className="rounded-2xl">
         <CardContent className="p-5">{form}</CardContent>
       </Card>

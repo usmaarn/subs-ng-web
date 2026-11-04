@@ -8,8 +8,8 @@ import {
 } from "@hugeicons/core-free-icons";
 import { toast } from "@/components/ui/toast";
 
-import { AppLayout } from "@/components/app/layout";
-import { StatCard } from "@/components/app/stat-card";
+import { AppLayout } from "@/components/layouts/DashboardLayout";
+import { StatCard } from "@/components/dashboard/stat-card";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";

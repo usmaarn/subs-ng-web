@@ -1,15 +1,16 @@
+
 import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
-import { AppLayout } from "@/components/app/layout";
-import { AmountStep } from "@/components/app/fund-wallet/amount-step";
-import { TransferStep } from "@/components/app/fund-wallet/transfer-step";
+import { AppLayout } from "@/components/layouts/DashboardLayout";
+import { AmountStep } from "@/components/dashboard/fund-wallet/amount-step";
+import { TransferStep } from "@/components/dashboard/fund-wallet/transfer-step";
 
 export const Route = createFileRoute("/app/fund-wallet")({
   component: FundWalletPage,
 });
 
 function FundWalletPage() {
-  const [amount, setAmount] = useState("");
+  const [amount, setAmount] = useState("1000");
   const [step, setStep] = useState<"amount" | "transfer">("amount");
 
   return (
@@ -22,7 +23,13 @@ function FundWalletPage() {
           <AmountStep
             amount={amount}
             onAmountChange={setAmount}
-            onContinue={() => setStep("transfer")}
+            onContinue={() => {
+              const value = Number(amount);
+
+              if (Number.isFinite(value) && value >= 1000) {
+                setStep("transfer");
+              }
+            }}
           />
         ) : (
           <TransferStep

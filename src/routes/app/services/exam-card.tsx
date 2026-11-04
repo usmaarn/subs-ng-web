@@ -4,15 +4,15 @@ import { createFileRoute } from "@tanstack/react-router";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { Copy01Icon, CheckmarkCircle02Icon } from "@hugeicons/core-free-icons";
 
-import { AppLayout } from "@/components/app/layout";
-import { BrandBadge } from "@/components/app/brand-badge";
-import { SelectionGrid } from "@/components/app/selection-grid";
+import { AppLayout } from "@/components/layouts/DashboardLayout";
+import { BrandBadge } from "@/components/dashboard/brand-badge";
+import { SelectionGrid } from "@/components/dashboard/selection-grid";
 import {
   FormSection,
   ServiceFormHeader,
   ServiceLayout,
-} from "@/components/app/service-layout";
-import { SummaryCard } from "@/components/app/summary-card";
+} from "@/components/dashboard/service-layout";
+import { SummaryCard } from "@/components/dashboard/summary-card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";

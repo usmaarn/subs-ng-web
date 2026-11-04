@@ -13,15 +13,15 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-import { AppLayout } from "@/components/app/layout";
-import { BrandBadge } from "@/components/app/brand-badge";
-import { SelectionGrid } from "@/components/app/selection-grid";
+import { AppLayout } from "@/components/layouts/DashboardLayout";
+import { BrandBadge } from "@/components/dashboard/brand-badge";
+import { SelectionGrid } from "@/components/dashboard/selection-grid";
 import {
   FormSection,
   ServiceFormHeader,
   ServiceLayout,
-} from "@/components/app/service-layout";
-import { SummaryCard } from "@/components/app/summary-card";
+} from "@/components/dashboard/service-layout";
+import { SummaryCard } from "@/components/dashboard/summary-card";
 
 import { banks, networks } from "@/lib/catalog";
 import {

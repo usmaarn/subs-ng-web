@@ -2,11 +2,8 @@ import { ButtonLink } from "@/components/ui/link";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Menu09Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { createFileRoute, Link, Outlet } from "@tanstack/react-router";
-
-export const Route = createFileRoute("/_public")({
-    component: PublicLayout,
-});
+import type { PropsWithChildren } from "react";
+import { Link } from "react-router";
 
 const navLinks = [
     { label: "Services", href: "#services" },
@@ -14,7 +11,7 @@ const navLinks = [
     { label: "How it works", href: "#how-it-works" },
 ];
 
-function PublicLayout() {
+export function PublicLayout({ children }: PropsWithChildren) {
     return (
         <Sheet>
             <div className="min-h-svh bg-white">
@@ -88,7 +85,7 @@ function PublicLayout() {
                 </SheetContent>
 
                 <main>
-                    <Outlet />
+                    {children}
                 </main>
 
                 <footer className="border-t border-gray-100 bg-gray-50">

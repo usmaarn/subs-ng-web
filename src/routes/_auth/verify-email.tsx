@@ -24,9 +24,13 @@ export const Route = createFileRoute("/_auth/verify-email")({
 });
 
 function VerifyEmailPage() {
-  const session = useAuthStore((state) => state.session);
+  const session = useAuthStore((store) => store.session);
+  const clearSession = useAuthStore((store) => store.clearSession);
+  const setUser = useAuthStore((store) => store.setUser);
+
   const navigate = useNavigate();
   const [sending, setSending] = useState(false);
+
   const form = useForm<VerifyEmailValues>({
     resolver: zodResolver(verifyEmailSchema),
     defaultValues: { code: "" },
@@ -39,7 +43,7 @@ function VerifyEmailPage() {
       toast.add({ type: "success", description: response.message });
     } catch (error) {
       if (isUnauthorizedError(error)) {
-        useAuthStore.getState().clearSession();
+        clearSession();
         await navigate({ to: "/login", replace: true });
         return;
       }
@@ -52,12 +56,12 @@ function VerifyEmailPage() {
   async function handleSubmit(values: VerifyEmailValues) {
     try {
       const response = await verifyEmail(values);
-      useAuthStore.getState().setUser(response.data);
+      setUser(response.data);
       toast.add({ type: "success", description: response.message });
       await navigate({ to: "/app" });
     } catch (error) {
       if (isUnauthorizedError(error)) {
-        useAuthStore.getState().clearSession();
+        clearSession();
         await navigate({ to: "/login", replace: true });
         return;
       }

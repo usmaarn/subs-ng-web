@@ -1,13 +1,5 @@
 
-import { createFileRoute } from "@tanstack/react-router";
-import { HugeiconsIcon } from "@hugeicons/react";
-import {
-  Message01Icon,
-  Mail01Icon,
-  Call02Icon,
-  Clock01Icon,
-} from "@hugeicons/core-free-icons";
-import { AppLayout } from "@/components/app/layout";
+import { AppLayout } from "@/components/layouts/DashboardLayout";
 import {
   Accordion,
   AccordionContent,
@@ -21,6 +13,14 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import {
+  Call02Icon,
+  Clock01Icon,
+  Mail01Icon,
+  Message01Icon,
+} from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/app/support")({
   component: SupportPage,
@@ -87,6 +87,7 @@ function SupportPage() {
         {/* Contact options */}
         <div className="grid gap-4 md:grid-cols-3">
           {contactOptions.map((option) => {
+            const Icon = option.icon;
             const isExternal = option.href.startsWith("https://");
 
             return (
@@ -96,7 +97,7 @@ function SupportPage() {
               >
                 <CardContent className="p-5">
                   <div className="flex size-11 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
-                    <HugeiconsIcon icon={option.icon} className="size-5" />
+                    <HugeiconsIcon icon={Icon} className="size-5" />
                   </div>
 
                   <h3 className="mt-4 text-base font-semibold">

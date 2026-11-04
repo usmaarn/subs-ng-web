@@ -11,7 +11,7 @@ import {
   SmartPhone01Icon,
 } from "@hugeicons/core-free-icons";
 
-import { AppLayout } from "@/components/app/layout";
+import { AppLayout } from "@/components/layouts/DashboardLayout";
 import { Card, CardContent } from "@/components/ui/card";
 
 export const Route = createFileRoute("/app/services/")({

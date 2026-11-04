@@ -10,12 +10,12 @@ import {
   Wallet01Icon,
 } from "@hugeicons/core-free-icons";
 
-import { AppLayout } from "@/components/app/layout";
-import { StatCard } from "@/components/app/stat-card";
+import { AppLayout } from "@/components/layouts/DashboardLayout";
+import { StatCard } from "@/components/dashboard/stat-card";
 import {
   TransactionIcon,
   TransactionStatusBadge,
-} from "@/components/app/transactions/transaction-display";
+} from "@/components/dashboard/transactions/transaction-display";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";

@@ -6,7 +6,7 @@ import {
     Refresh01Icon,
 } from "@hugeicons/core-free-icons";
 
-import { AppLayout } from "@/components/app/layout";
+import { AppLayout } from "@/components/layouts/DashboardLayout";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import {
