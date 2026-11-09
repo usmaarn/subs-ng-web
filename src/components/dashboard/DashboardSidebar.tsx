@@ -137,7 +137,7 @@ export function DashbaordSidebar() {
       <SidebarContent className="px-3">
         {/* Main navigation */}
         {menus.map((menu, index) => (
-          <SidebarGroup className="p-0" key={index}>
+          <SidebarGroup className="" key={index}>
             <SidebarGroupLabel className="uppercase mb-2 px-3 text-xs font-medium tracking-wider text-muted-foreground">
               {menu.title}
             </SidebarGroupLabel>
@@ -148,12 +148,12 @@ export function DashbaordSidebar() {
                   <SidebarMenuItem key={item.url}>
                     <SidebarMenuButton
                       tooltip={item.title}
-                      render={(props) => (
+                      render={({ className, ...props }) => (
                         <NavLink
                           to={item.url}
                           {...props}
                           className={({ isActive }) => cn(
-                            props.className,
+                            className,
                             "h-10 rounded-lg px-3",
                             isActive && "bg-primary/10 font-medium text-primary"
                           )}
@@ -176,12 +176,13 @@ export function DashbaordSidebar() {
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton
-              render={(props) => (
+              render={({ className, ...props }) => (
                 <NavLink
                   {...props}
                   to="/app/settings"
                   className={({ isActive }) => cn(
-                    "h-auto min-h-12 rounded-lg px-2 py-2",
+                    className,
+                    "h-auto min-h-12 rounded-lg px-2 py-2 flex",
                     isActive && "bg-primary/10 font-medium text-primary"
                   )}
                 >

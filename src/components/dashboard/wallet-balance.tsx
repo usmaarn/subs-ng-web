@@ -8,24 +8,24 @@ import {
   RefreshIcon,
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { Link } from "@tanstack/react-router";
+import { Link } from "react-router";
 import { useState } from "react";
 
 import { formatNaira } from "@/lib/format";
 import { Button } from "@/components/ui/button";
+import type { User } from "@/stores/auth";
+import type { DashboardStats } from "@/lib/types";
 
 type WalletBalanceProps = {
   loading?: boolean;
   onRefresh: () => void;
-  data?: {
-    balance: number;
-    commission: number;
-    stats: { label: string; amount: number }[];
-  };
+  wallet: User["wallet"];
+  stats: DashboardStats["services"]
 };
 
 export function WalletBalance({
-  data,
+  wallet,
+  stats,
   loading = false,
   onRefresh,
 }: WalletBalanceProps) {
@@ -41,7 +41,9 @@ export function WalletBalance({
     <div className="overflow-hidden rounded-2xl bg-primary/20">
       <div className="rounded-2xl bg-primary px-4 py-4 text-accent-foreground md:px-5 md:py-5">
         <div className="flex items-center gap-1">
-          <span className="text-sm text-primary-foreground">Account balance</span>
+          <span className="text-sm text-primary-foreground">
+            Account balance
+          </span>
 
           <Button
             variant="ghost"
@@ -80,7 +82,7 @@ export function WalletBalance({
         </div>
 
         <h2 className="mt-3 wrap-break-word text-primary-foreground text-3xl leading-tight font-semibold sm:text-4xl">
-          {fmt(data?.balance)}
+          {fmt(wallet.balance)}
         </h2>
       </div>
 
@@ -96,28 +98,22 @@ export function WalletBalance({
             >
               <div className="flex items-center gap-2 px-2">
                 <span className="w-28 md:w-30">Earnings</span>
-                <span className="font-medium">
-                  {fmt(data?.commission)}
-                </span>
+                <span className="font-medium">{fmt(wallet.commission)}</span>
               </div>
 
               <div>
-                <p className="px-2 text-xs text-muted-foreground">
-                  Statistics
-                </p>
+                <p className="px-2 text-xs text-muted-foreground">Statistics</p>
 
                 <div className="mt-1">
-                  {data?.stats.map((stat) => (
+                  {Object.keys(stats).map(key => (
                     <Link
-                      key={stat.label}
+                      key={key}
                       to="/app/transactions"
                       className="flex items-center rounded-xl px-2 py-1.5 transition-colors hover:bg-background"
                     >
-                      <span className="w-28 md:w-30">{stat.label}</span>
+                      <span className="w-28 md:w-30">{key}</span>
 
-                      <span className="font-medium">
-                        {fmt(stat.amount)}
-                      </span>
+                      <span className="font-medium">{fmt(stats[key as "airtime"])}</span>
 
                       <HugeiconsIcon
                         icon={ArrowRight01Icon}

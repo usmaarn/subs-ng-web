@@ -32,3 +32,18 @@ export function formatPhone(value: string) {
 export function isValidNgPhone(value: string) {
   return /^0[789][01]\d{8}$/.test(value.replace(/\s/g, ""));
 }
+
+
+export function formatNumberInput(value: string) {
+  const [integer, ...decimals] = value.split(".")
+
+  const formattedInteger = integer.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+
+  return decimals.length
+    ? `${formattedInteger}.${decimals.join("")}`
+    : formattedInteger
+}
+
+export function numericAmount(amount: string): number {
+  return Number(amount.replace(/,/g, ""))
+}

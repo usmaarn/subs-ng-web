@@ -6,7 +6,6 @@ import {
   ZapIcon,
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
@@ -18,6 +17,7 @@ import {
 
 import { notifications as initialNotifications } from "@/lib/catalog";
 import type { NotificationItem } from "@/lib/types";
+import { useNavigate } from "react-router";
 
 const categoryStyles: Record<
   NotificationItem["category"],
@@ -48,9 +48,7 @@ export function NotificationMenu() {
 
   function markAsRead(id: string) {
     setNotifications((items) =>
-      items.map((item) =>
-        item.id === id ? { ...item, unread: false } : item,
-      ),
+      items.map((item) => (item.id === id ? { ...item, unread: false } : item)),
     );
   }
 
@@ -100,10 +98,7 @@ export function NotificationMenu() {
               onClick={markAllAsRead}
               className="h-8 gap-1.5 px-2 text-xs"
             >
-              <HugeiconsIcon
-                icon={CheckmarkCircle01Icon}
-                className="size-4"
-              />
+              <HugeiconsIcon icon={CheckmarkCircle01Icon} className="size-4" />
               Mark all read
             </Button>
           )}
@@ -119,8 +114,9 @@ export function NotificationMenu() {
                   key={item.id}
                   type="button"
                   onClick={() => markAsRead(item.id)}
-                  className={`flex w-full gap-3 border-b border-border/50 px-4 py-3 text-left transition-colors hover:bg-muted/60 ${item.unread ? "bg-blue-50/50 dark:bg-blue-950/20" : ""
-                    }`}
+                  className={`flex w-full gap-3 border-b border-border/50 px-4 py-3 text-left transition-colors hover:bg-muted/60 ${
+                    item.unread ? "bg-blue-50/50 dark:bg-blue-950/20" : ""
+                  }`}
                 >
                   <div
                     className={`flex size-9 shrink-0 items-center justify-center rounded-full ${style.background} ${style.color}`}
@@ -131,8 +127,9 @@ export function NotificationMenu() {
                   <div className="min-w-0 flex-1">
                     <div className="flex items-start justify-between gap-2">
                       <p
-                        className={`text-sm ${item.unread ? "font-semibold" : "font-medium"
-                          }`}
+                        className={`text-sm ${
+                          item.unread ? "font-semibold" : "font-medium"
+                        }`}
                       >
                         {item.title}
                       </p>
@@ -171,7 +168,7 @@ export function NotificationMenu() {
             variant="ghost"
             size="sm"
             className="w-full text-sm"
-            onClick={() => void navigate({ to: "/app/notifications" })}
+            onClick={() => void navigate("/app/notifications")}
           >
             View all notifications
           </Button>

@@ -1,13 +1,13 @@
-import { SidebarProvider, SidebarTrigger, } from "@/components/ui/sidebar";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 
 import { NotificationMenu } from "@/components/notification-menu";
 import { SupportMenu } from "@/components/support-menu";
 import { UserMenu } from "@/components/user-menu";
-import { getAuthSession } from "@/stores/auth";
 import { ArrowLeft01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { ButtonLink } from "../ui/link";
 import { DashbaordSidebar } from "../dashboard/DashboardSidebar";
+import { useAuthStore } from "@/stores/auth";
 
 type DashboardLayoutProps = {
   children: React.ReactNode;
@@ -16,8 +16,13 @@ type DashboardLayoutProps = {
   backUrl?: string;
 };
 
-export function DashboardLayout({ children, title, description, backUrl }: DashboardLayoutProps) {
-  const user = getAuthSession()?.user;
+export function DashboardLayout({
+  children,
+  title,
+  description,
+  backUrl,
+}: DashboardLayoutProps) {
+  const user = useAuthStore((s) => s.session?.user ?? null);
 
   const firstName = user?.name?.split(" ")[0] ?? "there";
 
@@ -38,7 +43,7 @@ export function DashboardLayout({ children, title, description, backUrl }: Dashb
           <div className="flex shrink-0 items-center gap-2 sm:gap-3">
             <SupportMenu />
             <NotificationMenu />
-            <UserMenu />
+            <UserMenu user={user} />
           </div>
         </header>
 
