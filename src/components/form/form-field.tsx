@@ -6,14 +6,13 @@ import {
   type FieldValues,
 } from "react-hook-form";
 
+import { Icon } from "@iconify/react"
+
 import {
   Field,
   FieldDescription,
   FieldError,
-  FieldGroup,
-  FieldLabel,
-  FieldLegend,
-  FieldSet,
+  FieldLabel
 } from "@/components/ui/field";
 
 import {
@@ -37,10 +36,8 @@ import { Switch } from "@/components/ui/switch";
 import { ViewIcon, ViewOffIcon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { cn } from "cn";
-import { useState, type ComponentProps, type ReactNode } from "react";
+import React, { useState, type ComponentProps } from "react";
 import { Label } from "../ui/label";
-import { Spinner } from "../ui/spinner";
-import { Button } from "../ui/button";
 
 type Option = {
   label: string;
@@ -57,17 +54,17 @@ type FormFieldProps<T extends FieldValues> = {
   placeholder?: string;
 
   type?:
-    | "text"
-    | "email"
-    | "password"
-    | "number"
-    | "tel"
-    | "url"
-    | "textarea"
-    | "select"
-    | "checkbox"
-    | "radio"
-    | "switch";
+  | "text"
+  | "email"
+  | "password"
+  | "number"
+  | "tel"
+  | "url"
+  | "textarea"
+  | "select"
+  | "checkbox"
+  | "radio"
+  | "switch";
 
   icon?: React.ComponentProps<typeof HugeiconsIcon>["icon"];
   options?: Option[];
@@ -256,25 +253,82 @@ export function FormField<T extends FieldValues>({
   );
 }
 
+export type TextFieldProps<T extends FieldValues> = ComponentProps<"input"> & {
+  icon?: string;
+  label?: string;
+  error?: string;
+  helperText?: string;
+  control?: Control<T>;
+  name?: FieldPath<T>;
+  render?: (field: ControllerRenderProps<T, FieldPath<T>>) => React.ReactNode;
+}
+export function InputField<T extends FieldValues>({
+  className,
+  render,
+  control,
+  name,
+  icon,
+  label,
+  error,
+  helperText,
+  ...props
+}: TextFieldProps<T>) {
+  const id = React.useId();
+
+  function renderItem(error?: string, controlProps?: any) {
+    switch (props.type) {
+      case "checkbox":
+        return (
+          <div className="flex gap-2">
+            <input type="checkbox" className={cn("checkbox checkbox-primary mt-1", error && "is-invalid")} id={id} />
+            <label className="label-text cursor-pointer flex flex-col" htmlFor={id}>
+              <span className="text-sm">{label}</span>
+              {error || helperText && <span className="helper-text">{error || helperText}</span>}
+            </label>
+          </div>
+        )
+
+      default:
+        return (
+          <div >
+            {label && <label htmlFor={id} className="label-text text-sm">{label}</label>}
+            <div className={cn("input", className)}>
+              {icon && <Icon icon={icon} className="text-base-content/80 my-auto me-3 size-5 shrink-0" />}
+              <input className={cn("grow", !!error && "is-invalid")} id={id} {...props} {...controlProps} />
+            </div>
+            {error || helperText && <span className="helper-text">{error || helperText}</span>}
+          </div>
+        )
+    }
+  }
+
+  if (control && name) {
+    return <Controller
+      control={control}
+      name={name}
+      render={({ field, fieldState }) => {
+        if (render) return render(field) as any;
+        return renderItem(fieldState.error?.message ?? error, field)
+      }}
+    />
+  }
+
+  return renderItem(error)
+}
+
 export function SubmitButton({
   className,
   loading,
   disabled,
   children,
-  text,
   ...props
-}: ComponentProps<typeof Button> & {
+}: ComponentProps<"button"> & {
   loading?: boolean;
-  text?: ReactNode;
 }) {
   return (
-    <Button
-      type="submit"
-      disabled={loading || disabled}
-      className={cn(className, "w-full")}
-      {...props}
-    >
-      {loading ? <Spinner /> : (text ?? children)}
-    </Button>
+    <button type="submit" className={cn("btn btn-primary btn-block", loading || disabled && "btn-disabled", className)} {...props}>
+      <span hidden={!loading} className="loading loading-spinner"></span>
+      {children}
+    </button>
   );
 }

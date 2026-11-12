@@ -1,5 +1,5 @@
 import type { dataTableFeatures } from "@/components/data-table"
-import { formatCurrency } from "@/lib/format"
+import { formatNaira } from "@/lib/format"
 import type { ColumnDef } from "@tanstack/react-table"
 
 export interface Transaction {
@@ -29,7 +29,7 @@ export const recentTransactionsColumns: ColumnDef<typeof dataTableFeatures, Tran
   {
     accessorKey: "amount",
     header: "Amount",
-    cell: (cell) => formatCurrency(cell.getValue() as number)
+    cell: (cell) => formatNaira(cell.getValue() as number)
   },
   {
     accessorKey: "status",

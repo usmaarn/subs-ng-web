@@ -1,5 +1,4 @@
-import { ArrowRight, CheckCircle, Shield } from "@hugeicons/core-free-icons";
-import { HugeiconsIcon } from "@hugeicons/react";
+import { Icon } from "@iconify/react";
 import type { PropsWithChildren } from "react";
 import { Link } from "react-router";
 
@@ -12,14 +11,11 @@ const highlights = [
 export function AuthLayout({ children }: PropsWithChildren<{}>) {
   return (
     <div className="grid min-h-svh bg-white md:grid-cols-2">
-      <aside className="relative hidden overflow-hidden bg-primary p-10 text-white md:flex md:flex-col md:justify-between lg:p-12">
+      <aside className="relative hidden overflow-hidden bg-primary p-10 md:flex md:flex-col md:justify-between lg:p-12">
         <div className="pointer-events-none absolute -right-24 -top-24 size-80 rounded-full bg-white/10" />
         <div className="pointer-events-none absolute -bottom-32 -left-20 size-96 rounded-full bg-white/10" />
 
-        <Link
-          to="/"
-          className="relative flex w-fit items-center rounded-xl bg-white px-4 py-2"
-        >
+        <Link to="/" className="relative flex w-fit">
           <img
             src="/logo.png"
             width={112}
@@ -30,10 +26,10 @@ export function AuthLayout({ children }: PropsWithChildren<{}>) {
         </Link>
 
         <div className="relative max-w-lg">
-          <h1 className="mb-4 text-4xl leading-tight text-white lg:text-5xl">
+          <h1 className="mb-4 text-4xl leading-tight text-primary-content lg:text-5xl">
             Pay for everything. From one wallet.
           </h1>
-          <p className="mb-8 text-lg text-blue-100">
+          <p className="mb-8 text-lg text-primary-content">
             Buy airtime, data, cable TV, electricity and exam cards in seconds
             with Subs.NG.
           </p>
@@ -41,18 +37,15 @@ export function AuthLayout({ children }: PropsWithChildren<{}>) {
           <ul className="space-y-4">
             {highlights.map((highlight) => (
               <li key={highlight} className="flex items-start gap-3">
-                <HugeiconsIcon
-                  icon={CheckCircle}
-                  className="mt-1 text-lg text-blue-200"
-                />
-                <span className="text-base text-blue-50">{highlight}</span>
+                <Icon icon="andrsrxn:check-circle" className="mt-1 text-xl text-primary-content" />
+                <span className="text-primary-content">{highlight}</span>
               </li>
             ))}
           </ul>
         </div>
 
-        <div className="relative flex items-center gap-2 text-base text-blue-100">
-          <HugeiconsIcon icon={Shield} />
+        <div className="relative flex items-center gap-2 text-base text-primary-content">
+          <Icon icon="andrsrxn:shield-lock" className="text-2xl" />
           <span>Secure, reliable payments trusted across Nigeria.</span>
         </div>
       </aside>
@@ -76,7 +69,7 @@ export function AuthLayout({ children }: PropsWithChildren<{}>) {
               className="inline-flex items-center gap-1 text-sm font-medium text-gray-500"
             >
               Back
-              <HugeiconsIcon icon={ArrowRight} />
+              <Icon icon="andrsrxn:chevron-right" />
             </Link>
           </div>
         </div>
