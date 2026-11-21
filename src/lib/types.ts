@@ -1,27 +1,22 @@
-import type { User } from "@/stores/auth";
+import { TransactionCategory, TransactionStatus, TransactionType, UserRole, UserStatus, WalletStatus } from "./constants";
 
-export enum TransactionType {
-  Credit = "credit",
-  Debit = "debit",
-}
+export type User = {
+  id: string;
+  name: string;
+  email: string;
+  email_verified: boolean;
+  status: UserStatus;
+  role: UserRole;
+  created_at: string;
+  wallet: Wallet;
+};
 
-export enum TransactionStatus {
-  Pending = "pending",
-  Completed = "completed",
-  Failed = "failed",
-  Reversed = "reversed",
-}
-
-export enum TransactionCategory {
-  Funding = "funding",
-  Airtime = "airtime",
-  Data = "data",
-  ExamCard = "exam_card",
-  RechargeCard = "recharge_card",
-  CableTV = "cable-tv",
-  Electricity = "electricity",
-  Commission = "commission",
-  Transfer = "transfer",
+export type Wallet = {
+  id: string;
+  user_id: string;
+  balance: number;
+  commission: number;
+  status: WalletStatus;
 }
 
 export type NotificationItem = {
@@ -33,9 +28,19 @@ export type NotificationItem = {
   unread: boolean;
 };
 
+export type Transaction = {
+  id: string;
+  description: string;
+  reference: string;
+  date: string;
+  amount: number;
+  type: TransactionType;
+  status: TransactionStatus;
+  category: TransactionCategory;
+};
 
 export type DashboardStats = {
-  wallet: User["wallet"];
+  wallet: Wallet;
   credits: number;
   debits: number;
   services: {
@@ -44,14 +49,5 @@ export type DashboardStats = {
     examCards: number;
     cableTV: number;
   };
-  transactions: {
-    id: string;
-    description: string;
-    reference: string;
-    date: string;
-    amount: number;
-    type: TransactionType;
-    status: TransactionStatus;
-    category: TransactionCategory;
-  }[];
+  transactions: Transaction[];
 };

@@ -1,13 +1,11 @@
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 
-import { NotificationMenu } from "@/components/notification-menu";
-import { SupportMenu } from "@/components/support-menu";
-import { UserMenu } from "@/components/user-menu";
+import { NotificationMenu } from "@/components/NotificationMenu";
+import { UserMenu } from "@/components/UserMenu";
 import { ArrowLeft01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { ButtonLink } from "../ui/link";
 import { DashbaordSidebar } from "../dashboard/DashboardSidebar";
-import { useAuthStore } from "@/stores/auth";
+import { ButtonLink } from "../ui/link";
 
 type DashboardLayoutProps = {
   children: React.ReactNode;
@@ -22,10 +20,6 @@ export function DashboardLayout({
   description,
   backUrl,
 }: DashboardLayoutProps) {
-  const user = useAuthStore((s) => s.session?.user ?? null);
-
-  const firstName = user?.name?.split(" ")[0] ?? "there";
-
   return (
     <SidebarProvider>
       <DashbaordSidebar />
@@ -41,7 +35,6 @@ export function DashboardLayout({
           </div>
 
           <div className="flex shrink-0 items-center gap-2 sm:gap-3">
-            <SupportMenu />
             <NotificationMenu />
             <UserMenu user={user} />
           </div>

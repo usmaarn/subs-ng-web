@@ -1,6 +1,6 @@
 import { Icon } from "@iconify/react";
 import type { PropsWithChildren } from "react";
-import { Link } from "react-router";
+import { Link } from "@tanstack/react-router";
 
 const highlights = [
   "Instant airtime, data and bill payments",

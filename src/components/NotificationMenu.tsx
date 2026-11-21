@@ -17,7 +17,8 @@ import {
 
 import { notifications as initialNotifications } from "@/lib/catalog";
 import type { NotificationItem } from "@/lib/types";
-import { useNavigate } from "react-router";
+import { useNavigate } from "@tanstack/react-router";
+import { ButtonLink } from "./ui/link";
 
 const categoryStyles: Record<
   NotificationItem["category"],
@@ -114,9 +115,8 @@ export function NotificationMenu() {
                   key={item.id}
                   type="button"
                   onClick={() => markAsRead(item.id)}
-                  className={`flex w-full gap-3 border-b border-border/50 px-4 py-3 text-left transition-colors hover:bg-muted/60 ${
-                    item.unread ? "bg-blue-50/50 dark:bg-blue-950/20" : ""
-                  }`}
+                  className={`flex w-full gap-3 border-b border-border/50 px-4 py-3 text-left transition-colors hover:bg-muted/60 ${item.unread ? "bg-blue-50/50 dark:bg-blue-950/20" : ""
+                    }`}
                 >
                   <div
                     className={`flex size-9 shrink-0 items-center justify-center rounded-full ${style.background} ${style.color}`}
@@ -127,9 +127,8 @@ export function NotificationMenu() {
                   <div className="min-w-0 flex-1">
                     <div className="flex items-start justify-between gap-2">
                       <p
-                        className={`text-sm ${
-                          item.unread ? "font-semibold" : "font-medium"
-                        }`}
+                        className={`text-sm ${item.unread ? "font-semibold" : "font-medium"
+                          }`}
                       >
                         {item.title}
                       </p>
@@ -164,14 +163,14 @@ export function NotificationMenu() {
         </div>
 
         <div className="border-t p-2">
-          <Button
+          <ButtonLink
             variant="ghost"
             size="sm"
             className="w-full text-sm"
-            onClick={() => void navigate("/app/notifications")}
+            to="/app/notifications"
           >
             View all notifications
-          </Button>
+          </ButtonLink>
         </div>
       </DropdownMenuContent>
     </DropdownMenu>
