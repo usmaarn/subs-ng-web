@@ -6,6 +6,7 @@ import {
     Scripts,
 } from '@tanstack/react-router'
 import "../styles.css"
+import { Toaster } from '@/components/ui/toast'
 
 export const Route = createRootRoute({
     head: () => ({
@@ -29,6 +30,7 @@ function RootComponent() {
     return (
         <RootDocument>
             <Outlet />
+            <Toaster />
         </RootDocument>
     )
 }

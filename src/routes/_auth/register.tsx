@@ -1,13 +1,20 @@
 import { Button } from '@/components/ui/button'
+import { Checkbox } from '@/components/ui/checkbox'
 import { Field, FieldDescription, FieldError, FieldGroup, FieldLabel, FieldLegend, FieldSet } from '@/components/ui/field'
 import { Input } from '@/components/ui/input'
+import { InputGroup, InputGroupAddon, InputGroupInput } from '@/components/ui/input-group'
+import { Label } from '@/components/ui/label'
+import { Spinner } from '@/components/ui/spinner'
 import { toast } from '@/components/ui/toast'
 import { api } from '@/lib/api'
 import { SessionData, setSession } from '@/server/session'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { Eye, EyeOff } from '@hugeicons/core-free-icons'
+import { HugeiconsIcon } from '@hugeicons/react'
 import { createFileRoute, redirect } from '@tanstack/react-router'
 import { createServerFn } from '@tanstack/react-start'
 import axios from 'axios'
+import { useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { z } from "zod/v4"
 
@@ -18,6 +25,7 @@ export const Route = createFileRoute('/_auth/register')({
 const schema = z.object({
     name: z.string().nonempty(),
     email: z.email().nonempty(),
+    phone: z.string().nonempty().regex(/^(?:\+234|234|0)[789][01]\d{8}$/),
     password: z.string().min(8).nonempty(),
     acceptTerms: z.literal<boolean>(true),
 })
@@ -31,17 +39,22 @@ const registerFn = createServerFn()
     })
 
 function RouteComponent() {
+    const [showPassword, setShowPassword] = useState(false);
     const form = useForm({
         resolver: zodResolver(schema),
         defaultValues: {
             name: "",
             email: '',
+            phone: '',
             password: '',
             acceptTerms: false,
         }
     })
 
-    const submit = async (values: any) => {
+    const isPending = form.formState.isSubmitting;
+
+    const submit = (values: any) => {
+        console.log(values);
         registerFn({ data: values }).catch(err => {
             if (axios.isAxiosError(err)) {
                 const errs = err.response?.data?.errors ?? {};
@@ -66,14 +79,72 @@ function RouteComponent() {
                         name='name'
                         render={({ field, fieldState }) => (
                             <Field data-invalid={fieldState.invalid}>
+                                <FieldLabel>Full Name</FieldLabel>
+                                <Input aria-invalid={fieldState.invalid} placeholder='enter full name' {...field} />
+                                <FieldError errors={[fieldState.error]} />
+                            </Field>
+                        )}
+                    />
+                    <Controller
+                        control={form.control}
+                        name='email'
+                        render={({ field, fieldState }) => (
+                            <Field data-invalid={fieldState.invalid}>
                                 <FieldLabel>Email Address</FieldLabel>
                                 <Input aria-invalid={fieldState.invalid} placeholder='enter email address' {...field} />
                                 <FieldError errors={[fieldState.error]} />
                             </Field>
                         )}
                     />
+                    <Controller
+                        control={form.control}
+                        name='phone'
+                        render={({ field, fieldState }) => (
+                            <Field data-invalid={fieldState.invalid}>
+                                <FieldLabel>Phone Number</FieldLabel>
+                                <Input aria-invalid={fieldState.invalid} placeholder='enter phone number' {...field} />
+                                <FieldError errors={[fieldState.error]} />
+                            </Field>
+                        )}
+                    />
+                    <Controller
+                        control={form.control}
+                        name='password'
+                        render={({ field, fieldState }) => (
+                            <Field data-invalid={fieldState.invalid}>
+                                <FieldLabel>Password</FieldLabel>
+                                <InputGroup>
+                                    <InputGroupInput
+                                        aria-invalid={fieldState.invalid}
+                                        placeholder='enter email address'
+                                        {...field}
+                                        type={showPassword ? "text" : 'password'}
+                                    />
+                                    <InputGroupAddon align="inline-end">
+                                        <button type='button' onClick={() => setShowPassword(!showPassword)}>
+                                            <HugeiconsIcon icon={showPassword ? EyeOff : Eye} size={18} />
+                                        </button>
+                                    </InputGroupAddon>
+                                </InputGroup>
+                                <FieldError errors={[fieldState.error]} />
+                            </Field>
+                        )}
+                    />
 
-                    <Button type='submit' size="lg" className="w-full">
+                    <Controller
+                        control={form.control}
+                        name='acceptTerms'
+                        render={({ field, fieldState }) => (
+                            <Field orientation="horizontal" data-invalid={fieldState.invalid}>
+                                <Checkbox onCheckedChange={field.onChange} checked={field.value} id='acceptTerms' />
+                                <Label htmlFor="acceptTerms">Accept terms and conditions</Label>
+                                <FieldError errors={[fieldState.error]} />
+                            </Field>
+                        )}
+                    />
+
+                    <Button disabled={isPending} type='submit' size="lg" className="w-full">
+                        {isPending && <Spinner />}
                         Create account
                     </Button>
                 </FieldGroup>
