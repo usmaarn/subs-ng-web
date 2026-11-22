@@ -11,11 +11,13 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as AuthRouteImport } from './routes/_auth'
 import { Route as PublicRouteImport } from './routes/_public'
+import { Route as AppRouteImport } from './routes/app'
 import { Route as AuthForgotPasswordRouteImport } from './routes/_auth/forgot-password'
 import { Route as AuthLoginRouteImport } from './routes/_auth/login'
 import { Route as AuthRegisterRouteImport } from './routes/_auth/register'
 import { Route as AuthResetPasswordRouteImport } from './routes/_auth/reset-password'
 import { Route as PublicIndexRouteImport } from './routes/_public/index'
+import { Route as AppIndexRouteImport } from './routes/app/index'
 import { Route as AppCommissionRouteImport } from './routes/app/commission'
 import { Route as AppNotificationsRouteImport } from './routes/app/notifications'
 import { Route as AppPricingRouteImport } from './routes/app/pricing'
@@ -23,7 +25,6 @@ import { Route as AppSettingsRouteImport } from './routes/app/settings'
 import { Route as AppSupportRouteImport } from './routes/app/support'
 import { Route as AppTransactionsRouteImport } from './routes/app/transactions'
 import { Route as AppWalletRouteImport } from './routes/app/wallet'
-import { Route as DashboardIndexRouteImport } from './routes/dashboard/index'
 import { Route as AppServicesIndexRouteImport } from './routes/app/services/index'
 import { Route as AppServicesAirtimeRouteImport } from './routes/app/services/airtime'
 import { Route as AppServicesAirtimeToCashRouteImport } from './routes/app/services/airtime-to-cash'
@@ -39,6 +40,11 @@ const AuthRoute = AuthRouteImport.update({
 } as any)
 const PublicRoute = PublicRouteImport.update({
   id: '/_public',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppRoute = AppRouteImport.update({
+  id: '/app',
+  path: '/app',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthForgotPasswordRoute = AuthForgotPasswordRouteImport.update({
@@ -66,90 +72,91 @@ const PublicIndexRoute = PublicIndexRouteImport.update({
   path: '/',
   getParentRoute: () => PublicRoute,
 } as any)
+const AppIndexRoute = AppIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppCommissionRoute = AppCommissionRouteImport.update({
-  id: '/app/commission',
-  path: '/app/commission',
-  getParentRoute: () => rootRouteImport,
+  id: '/commission',
+  path: '/commission',
+  getParentRoute: () => AppRoute,
 } as any)
 const AppNotificationsRoute = AppNotificationsRouteImport.update({
-  id: '/app/notifications',
-  path: '/app/notifications',
-  getParentRoute: () => rootRouteImport,
+  id: '/notifications',
+  path: '/notifications',
+  getParentRoute: () => AppRoute,
 } as any)
 const AppPricingRoute = AppPricingRouteImport.update({
-  id: '/app/pricing',
-  path: '/app/pricing',
-  getParentRoute: () => rootRouteImport,
+  id: '/pricing',
+  path: '/pricing',
+  getParentRoute: () => AppRoute,
 } as any)
 const AppSettingsRoute = AppSettingsRouteImport.update({
-  id: '/app/settings',
-  path: '/app/settings',
-  getParentRoute: () => rootRouteImport,
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => AppRoute,
 } as any)
 const AppSupportRoute = AppSupportRouteImport.update({
-  id: '/app/support',
-  path: '/app/support',
-  getParentRoute: () => rootRouteImport,
+  id: '/support',
+  path: '/support',
+  getParentRoute: () => AppRoute,
 } as any)
 const AppTransactionsRoute = AppTransactionsRouteImport.update({
-  id: '/app/transactions',
-  path: '/app/transactions',
-  getParentRoute: () => rootRouteImport,
+  id: '/transactions',
+  path: '/transactions',
+  getParentRoute: () => AppRoute,
 } as any)
 const AppWalletRoute = AppWalletRouteImport.update({
-  id: '/app/wallet',
-  path: '/app/wallet',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DashboardIndexRoute = DashboardIndexRouteImport.update({
-  id: '/dashboard/',
-  path: '/dashboard/',
-  getParentRoute: () => rootRouteImport,
+  id: '/wallet',
+  path: '/wallet',
+  getParentRoute: () => AppRoute,
 } as any)
 const AppServicesIndexRoute = AppServicesIndexRouteImport.update({
-  id: '/app/services/',
-  path: '/app/services/',
-  getParentRoute: () => rootRouteImport,
+  id: '/services/',
+  path: '/services/',
+  getParentRoute: () => AppRoute,
 } as any)
 const AppServicesAirtimeRoute = AppServicesAirtimeRouteImport.update({
-  id: '/app/services/airtime',
-  path: '/app/services/airtime',
-  getParentRoute: () => rootRouteImport,
+  id: '/services/airtime',
+  path: '/services/airtime',
+  getParentRoute: () => AppRoute,
 } as any)
 const AppServicesAirtimeToCashRoute =
   AppServicesAirtimeToCashRouteImport.update({
-    id: '/app/services/airtime-to-cash',
-    path: '/app/services/airtime-to-cash',
-    getParentRoute: () => rootRouteImport,
+    id: '/services/airtime-to-cash',
+    path: '/services/airtime-to-cash',
+    getParentRoute: () => AppRoute,
   } as any)
 const AppServicesCableTvRoute = AppServicesCableTvRouteImport.update({
-  id: '/app/services/cable-tv',
-  path: '/app/services/cable-tv',
-  getParentRoute: () => rootRouteImport,
+  id: '/services/cable-tv',
+  path: '/services/cable-tv',
+  getParentRoute: () => AppRoute,
 } as any)
 const AppServicesDataRoute = AppServicesDataRouteImport.update({
-  id: '/app/services/data',
-  path: '/app/services/data',
-  getParentRoute: () => rootRouteImport,
+  id: '/services/data',
+  path: '/services/data',
+  getParentRoute: () => AppRoute,
 } as any)
 const AppServicesElectricityRoute = AppServicesElectricityRouteImport.update({
-  id: '/app/services/electricity',
-  path: '/app/services/electricity',
-  getParentRoute: () => rootRouteImport,
+  id: '/services/electricity',
+  path: '/services/electricity',
+  getParentRoute: () => AppRoute,
 } as any)
 const AppServicesExamCardRoute = AppServicesExamCardRouteImport.update({
-  id: '/app/services/exam-card',
-  path: '/app/services/exam-card',
-  getParentRoute: () => rootRouteImport,
+  id: '/services/exam-card',
+  path: '/services/exam-card',
+  getParentRoute: () => AppRoute,
 } as any)
 const AppServicesRechargeCardRoute = AppServicesRechargeCardRouteImport.update({
-  id: '/app/services/recharge-card',
-  path: '/app/services/recharge-card',
-  getParentRoute: () => rootRouteImport,
+  id: '/services/recharge-card',
+  path: '/services/recharge-card',
+  getParentRoute: () => AppRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof PublicIndexRoute
+  '/app': typeof AppRouteWithChildren
   '/forgot-password': typeof AuthForgotPasswordRoute
   '/login': typeof AuthLoginRoute
   '/register': typeof AuthRegisterRoute
@@ -161,7 +168,7 @@ export interface FileRoutesByFullPath {
   '/app/support': typeof AppSupportRoute
   '/app/transactions': typeof AppTransactionsRoute
   '/app/wallet': typeof AppWalletRoute
-  '/dashboard/': typeof DashboardIndexRoute
+  '/app/': typeof AppIndexRoute
   '/app/services/airtime': typeof AppServicesAirtimeRoute
   '/app/services/airtime-to-cash': typeof AppServicesAirtimeToCashRoute
   '/app/services/cable-tv': typeof AppServicesCableTvRoute
@@ -184,7 +191,7 @@ export interface FileRoutesByTo {
   '/app/support': typeof AppSupportRoute
   '/app/transactions': typeof AppTransactionsRoute
   '/app/wallet': typeof AppWalletRoute
-  '/dashboard': typeof DashboardIndexRoute
+  '/app': typeof AppIndexRoute
   '/app/services/airtime': typeof AppServicesAirtimeRoute
   '/app/services/airtime-to-cash': typeof AppServicesAirtimeToCashRoute
   '/app/services/cable-tv': typeof AppServicesCableTvRoute
@@ -198,6 +205,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_auth': typeof AuthRouteWithChildren
   '/_public': typeof PublicRouteWithChildren
+  '/app': typeof AppRouteWithChildren
   '/_auth/forgot-password': typeof AuthForgotPasswordRoute
   '/_auth/login': typeof AuthLoginRoute
   '/_auth/register': typeof AuthRegisterRoute
@@ -210,7 +218,7 @@ export interface FileRoutesById {
   '/app/transactions': typeof AppTransactionsRoute
   '/app/wallet': typeof AppWalletRoute
   '/_public/': typeof PublicIndexRoute
-  '/dashboard/': typeof DashboardIndexRoute
+  '/app/': typeof AppIndexRoute
   '/app/services/airtime': typeof AppServicesAirtimeRoute
   '/app/services/airtime-to-cash': typeof AppServicesAirtimeToCashRoute
   '/app/services/cable-tv': typeof AppServicesCableTvRoute
@@ -224,6 +232,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/app'
     | '/forgot-password'
     | '/login'
     | '/register'
@@ -235,7 +244,7 @@ export interface FileRouteTypes {
     | '/app/support'
     | '/app/transactions'
     | '/app/wallet'
-    | '/dashboard/'
+    | '/app/'
     | '/app/services/airtime'
     | '/app/services/airtime-to-cash'
     | '/app/services/cable-tv'
@@ -258,7 +267,7 @@ export interface FileRouteTypes {
     | '/app/support'
     | '/app/transactions'
     | '/app/wallet'
-    | '/dashboard'
+    | '/app'
     | '/app/services/airtime'
     | '/app/services/airtime-to-cash'
     | '/app/services/cable-tv'
@@ -271,6 +280,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/_auth'
     | '/_public'
+    | '/app'
     | '/_auth/forgot-password'
     | '/_auth/login'
     | '/_auth/register'
@@ -283,7 +293,7 @@ export interface FileRouteTypes {
     | '/app/transactions'
     | '/app/wallet'
     | '/_public/'
-    | '/dashboard/'
+    | '/app/'
     | '/app/services/airtime'
     | '/app/services/airtime-to-cash'
     | '/app/services/cable-tv'
@@ -297,22 +307,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   AuthRoute: typeof AuthRouteWithChildren
   PublicRoute: typeof PublicRouteWithChildren
-  AppCommissionRoute: typeof AppCommissionRoute
-  AppNotificationsRoute: typeof AppNotificationsRoute
-  AppPricingRoute: typeof AppPricingRoute
-  AppSettingsRoute: typeof AppSettingsRoute
-  AppSupportRoute: typeof AppSupportRoute
-  AppTransactionsRoute: typeof AppTransactionsRoute
-  AppWalletRoute: typeof AppWalletRoute
-  DashboardIndexRoute: typeof DashboardIndexRoute
-  AppServicesAirtimeRoute: typeof AppServicesAirtimeRoute
-  AppServicesAirtimeToCashRoute: typeof AppServicesAirtimeToCashRoute
-  AppServicesCableTvRoute: typeof AppServicesCableTvRoute
-  AppServicesDataRoute: typeof AppServicesDataRoute
-  AppServicesElectricityRoute: typeof AppServicesElectricityRoute
-  AppServicesExamCardRoute: typeof AppServicesExamCardRoute
-  AppServicesRechargeCardRoute: typeof AppServicesRechargeCardRoute
-  AppServicesIndexRoute: typeof AppServicesIndexRoute
+  AppRoute: typeof AppRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -329,6 +324,13 @@ declare module '@tanstack/react-router' {
       path: ''
       fullPath: '/'
       preLoaderRoute: typeof PublicRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app': {
+      id: '/app'
+      path: '/app'
+      fullPath: '/app'
+      preLoaderRoute: typeof AppRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_auth/forgot-password': {
@@ -366,117 +368,117 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PublicIndexRouteImport
       parentRoute: typeof PublicRoute
     }
+    '/app/': {
+      id: '/app/'
+      path: '/'
+      fullPath: '/app/'
+      preLoaderRoute: typeof AppIndexRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/app/commission': {
       id: '/app/commission'
-      path: '/app/commission'
+      path: '/commission'
       fullPath: '/app/commission'
       preLoaderRoute: typeof AppCommissionRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof AppRoute
     }
     '/app/notifications': {
       id: '/app/notifications'
-      path: '/app/notifications'
+      path: '/notifications'
       fullPath: '/app/notifications'
       preLoaderRoute: typeof AppNotificationsRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof AppRoute
     }
     '/app/pricing': {
       id: '/app/pricing'
-      path: '/app/pricing'
+      path: '/pricing'
       fullPath: '/app/pricing'
       preLoaderRoute: typeof AppPricingRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof AppRoute
     }
     '/app/settings': {
       id: '/app/settings'
-      path: '/app/settings'
+      path: '/settings'
       fullPath: '/app/settings'
       preLoaderRoute: typeof AppSettingsRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof AppRoute
     }
     '/app/support': {
       id: '/app/support'
-      path: '/app/support'
+      path: '/support'
       fullPath: '/app/support'
       preLoaderRoute: typeof AppSupportRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof AppRoute
     }
     '/app/transactions': {
       id: '/app/transactions'
-      path: '/app/transactions'
+      path: '/transactions'
       fullPath: '/app/transactions'
       preLoaderRoute: typeof AppTransactionsRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof AppRoute
     }
     '/app/wallet': {
       id: '/app/wallet'
-      path: '/app/wallet'
+      path: '/wallet'
       fullPath: '/app/wallet'
       preLoaderRoute: typeof AppWalletRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/dashboard/': {
-      id: '/dashboard/'
-      path: '/dashboard'
-      fullPath: '/dashboard/'
-      preLoaderRoute: typeof DashboardIndexRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof AppRoute
     }
     '/app/services/': {
       id: '/app/services/'
-      path: '/app/services'
+      path: '/services'
       fullPath: '/app/services/'
       preLoaderRoute: typeof AppServicesIndexRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof AppRoute
     }
     '/app/services/airtime': {
       id: '/app/services/airtime'
-      path: '/app/services/airtime'
+      path: '/services/airtime'
       fullPath: '/app/services/airtime'
       preLoaderRoute: typeof AppServicesAirtimeRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof AppRoute
     }
     '/app/services/airtime-to-cash': {
       id: '/app/services/airtime-to-cash'
-      path: '/app/services/airtime-to-cash'
+      path: '/services/airtime-to-cash'
       fullPath: '/app/services/airtime-to-cash'
       preLoaderRoute: typeof AppServicesAirtimeToCashRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof AppRoute
     }
     '/app/services/cable-tv': {
       id: '/app/services/cable-tv'
-      path: '/app/services/cable-tv'
+      path: '/services/cable-tv'
       fullPath: '/app/services/cable-tv'
       preLoaderRoute: typeof AppServicesCableTvRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof AppRoute
     }
     '/app/services/data': {
       id: '/app/services/data'
-      path: '/app/services/data'
+      path: '/services/data'
       fullPath: '/app/services/data'
       preLoaderRoute: typeof AppServicesDataRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof AppRoute
     }
     '/app/services/electricity': {
       id: '/app/services/electricity'
-      path: '/app/services/electricity'
+      path: '/services/electricity'
       fullPath: '/app/services/electricity'
       preLoaderRoute: typeof AppServicesElectricityRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof AppRoute
     }
     '/app/services/exam-card': {
       id: '/app/services/exam-card'
-      path: '/app/services/exam-card'
+      path: '/services/exam-card'
       fullPath: '/app/services/exam-card'
       preLoaderRoute: typeof AppServicesExamCardRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof AppRoute
     }
     '/app/services/recharge-card': {
       id: '/app/services/recharge-card'
-      path: '/app/services/recharge-card'
+      path: '/services/recharge-card'
       fullPath: '/app/services/recharge-card'
       preLoaderRoute: typeof AppServicesRechargeCardRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof AppRoute
     }
   }
 }
@@ -508,9 +510,26 @@ const PublicRouteChildren: PublicRouteChildren = {
 const PublicRouteWithChildren =
   PublicRoute._addFileChildren(PublicRouteChildren)
 
-const rootRouteChildren: RootRouteChildren = {
-  AuthRoute: AuthRouteWithChildren,
-  PublicRoute: PublicRouteWithChildren,
+interface AppRouteChildren {
+  AppCommissionRoute: typeof AppCommissionRoute
+  AppNotificationsRoute: typeof AppNotificationsRoute
+  AppPricingRoute: typeof AppPricingRoute
+  AppSettingsRoute: typeof AppSettingsRoute
+  AppSupportRoute: typeof AppSupportRoute
+  AppTransactionsRoute: typeof AppTransactionsRoute
+  AppWalletRoute: typeof AppWalletRoute
+  AppIndexRoute: typeof AppIndexRoute
+  AppServicesAirtimeRoute: typeof AppServicesAirtimeRoute
+  AppServicesAirtimeToCashRoute: typeof AppServicesAirtimeToCashRoute
+  AppServicesCableTvRoute: typeof AppServicesCableTvRoute
+  AppServicesDataRoute: typeof AppServicesDataRoute
+  AppServicesElectricityRoute: typeof AppServicesElectricityRoute
+  AppServicesExamCardRoute: typeof AppServicesExamCardRoute
+  AppServicesRechargeCardRoute: typeof AppServicesRechargeCardRoute
+  AppServicesIndexRoute: typeof AppServicesIndexRoute
+}
+
+const AppRouteChildren: AppRouteChildren = {
   AppCommissionRoute: AppCommissionRoute,
   AppNotificationsRoute: AppNotificationsRoute,
   AppPricingRoute: AppPricingRoute,
@@ -518,7 +537,7 @@ const rootRouteChildren: RootRouteChildren = {
   AppSupportRoute: AppSupportRoute,
   AppTransactionsRoute: AppTransactionsRoute,
   AppWalletRoute: AppWalletRoute,
-  DashboardIndexRoute: DashboardIndexRoute,
+  AppIndexRoute: AppIndexRoute,
   AppServicesAirtimeRoute: AppServicesAirtimeRoute,
   AppServicesAirtimeToCashRoute: AppServicesAirtimeToCashRoute,
   AppServicesCableTvRoute: AppServicesCableTvRoute,
@@ -527,6 +546,14 @@ const rootRouteChildren: RootRouteChildren = {
   AppServicesExamCardRoute: AppServicesExamCardRoute,
   AppServicesRechargeCardRoute: AppServicesRechargeCardRoute,
   AppServicesIndexRoute: AppServicesIndexRoute,
+}
+
+const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
+
+const rootRouteChildren: RootRouteChildren = {
+  AuthRoute: AuthRouteWithChildren,
+  PublicRoute: PublicRouteWithChildren,
+  AppRoute: AppRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -1,88 +1,57 @@
-import { toast } from "@/components/ui/toast";
-import {
-  Logout01Icon,
-  Settings01Icon,
-  Shield01Icon,
-  UserIcon,
-} from "@hugeicons/core-free-icons";
-import { HugeiconsIcon } from "@hugeicons/react";
-
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { useNavigate } from "@tanstack/react-router"
+import { HugeiconsIcon } from "@hugeicons/react"
+import { Logout03Icon, Settings01Icon, UserIcon } from "@hugeicons/core-free-icons"
+import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { useAuthStore, type User } from "@/stores/auth";
-import { useNavigate } from "react-router";
+} from "@/components/ui/dropdown-menu"
+import { clearSession } from "@/server/session"
+import { toast } from "@/components/ui/toast"
 
-export function UserMenu({ user }: { user: User | null }) {
-  const navigate = useNavigate();
-  const clearSession = useAuthStore(s => s.clearSession);
+type UserMenuProps = {
+  user?: { name?: string; email?: string } | null
+}
 
-  const initials = user?.name
-    .split(" ")
-    .map((e) => e[0])
-    .join("");
+export function UserMenu({ user }: UserMenuProps) {
+  const navigate = useNavigate()
+  const name = user?.name || "User"
+  const email = user?.email || ""
+  const initials = name.split(" ").filter(Boolean).map((p) => p[0]).join("").slice(0, 2).toUpperCase() || "U"
 
-  const handleLogout = () => {
-    clearSession()
-    toast.add({ type: "success", description: "Signed out" });
-    void navigate("/login");
-  };
+  async function handleLogout() {
+    await clearSession()
+    toast.add({ type: "success", description: "Signed out" })
+    await navigate({ to: "/login" })
+  }
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger>
+      <DropdownMenuTrigger className="rounded-full outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50">
         <Avatar size="lg">
-          <AvatarFallback className="bg-blue-100 text-lg text-primary">
-            {initials}
-          </AvatarFallback>
+          <AvatarFallback className="bg-primary/10 text-primary font-medium">{initials}</AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
-
-      <DropdownMenuContent className="w-60 rounded-xl p-1.5">
-        <div className="flex items-center gap-3 px-2.5 py-3">
-          <Avatar className="size-11">
-            <AvatarFallback className="bg-blue-100 text-lg text-primary">
-              {initials}
-            </AvatarFallback>
-          </Avatar>
-
-          <div className="min-w-0">
-            <p className="truncate text-sm font-semibold">{user?.name}</p>
-            <p className="truncate text-xs text-muted-foreground">
-              {user?.email}
-            </p>
-          </div>
+      <DropdownMenuContent align="end" className="w-56 rounded-xl">
+        <div className="px-3 py-2.5">
+          <p className="truncate text-sm font-medium">{name}</p>
+          {email && <p className="truncate text-xs text-muted-foreground">{email}</p>}
         </div>
-
         <DropdownMenuSeparator />
-
-        <DropdownMenuItem onClick={() => void navigate("/app/settings")}>
-          <HugeiconsIcon icon={UserIcon} className="size-4" />
-          My profile
+        <DropdownMenuItem onClick={() => navigate({ to: "/app/settings" })}>
+          <HugeiconsIcon icon={UserIcon} className="size-4" /> Profile
         </DropdownMenuItem>
-
-        <DropdownMenuItem onClick={() => void navigate("/app/settings")}>
-          <HugeiconsIcon icon={Settings01Icon} className="size-4" />
-          Account settings
+        <DropdownMenuItem onClick={() => navigate({ to: "/app/settings" })}>
+          <HugeiconsIcon icon={Settings01Icon} className="size-4" /> Settings
         </DropdownMenuItem>
-
-        <DropdownMenuItem onClick={() => void navigate("/app/settings")}>
-          <HugeiconsIcon icon={Shield01Icon} className="size-4" />
-          Security
-        </DropdownMenuItem>
-
         <DropdownMenuSeparator />
-
         <DropdownMenuItem variant="destructive" onClick={handleLogout}>
-          <HugeiconsIcon icon={Logout01Icon} className="size-4" />
-          Sign out
+          <HugeiconsIcon icon={Logout03Icon} className="size-4" /> Sign out
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
-  );
+  )
 }

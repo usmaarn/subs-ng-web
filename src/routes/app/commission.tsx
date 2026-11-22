@@ -214,7 +214,7 @@ function CommissionPage() {
                   <Label>Bank</Label>
                   <Select
                     value={values.bank}
-                    onValueChange={(value) =>
+                    onValueChange={(value: string | null) =>
                       updateField("bank", value ?? "")
                     }
                   >

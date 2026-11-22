@@ -7,7 +7,7 @@ import { Label } from '@/components/ui/label'
 import { Spinner } from '@/components/ui/spinner'
 import { toast } from '@/components/ui/toast'
 import { api } from '@/lib/api'
-import { SessionData, setSession } from '@/server/session'
+import { type SessionData, setSession } from '@/server/session'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Eye, EyeOff } from '@hugeicons/core-free-icons'
 import { HugeiconsIcon } from '@hugeicons/react'
@@ -35,7 +35,7 @@ const registerFn = createServerFn()
     .handler(async ({ data }) => {
         const resp = await api.post<SessionData>("/auth/register", data);
         await setSession({ data: resp.data })
-        throw redirect({ to: "/dashboard" })
+        throw redirect({ to: "/app" })
     })
 
 function RouteComponent() {

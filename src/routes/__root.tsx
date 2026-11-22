@@ -5,6 +5,7 @@ import {
     HeadContent,
     Scripts,
 } from '@tanstack/react-router'
+// @ts-expect-error css side effect
 import "../styles.css"
 import { Toaster } from '@/components/ui/toast'
 

@@ -38,7 +38,8 @@ import {
 
 import { transactions } from "@/lib/catalog";
 import { formatNaira } from "@/lib/format";
-import type { Transaction, TransactionStatus } from "@/lib/types";
+import type { Transaction } from "@/lib/types";
+import { TransactionStatus } from "@/lib/constants";
 
 export const Route = createFileRoute("/app/transactions")({
   component: TransactionsPage,
@@ -46,7 +47,7 @@ export const Route = createFileRoute("/app/transactions")({
 
 const statusOptions = [
   { label: "All status", value: "all" },
-  { label: "Successful", value: "Successful" },
+  { label: TransactionStatus.Completed, value: TransactionStatus.Completed },
   { label: "Pending", value: "Pending" },
   { label: "Failed", value: "Failed" },
 ];
@@ -83,7 +84,7 @@ function TransactionsPage() {
   const totalSpent = transactions
     .filter(
       (transaction) =>
-        transaction.type === "debit" && transaction.status === "Successful",
+        transaction.type === "debit" && transaction.status === TransactionStatus.Completed,
     )
     .reduce((sum, transaction) => sum + transaction.amount, 0);
 

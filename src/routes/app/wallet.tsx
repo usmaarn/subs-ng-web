@@ -7,7 +7,7 @@ import {
   Wallet01Icon,
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { toast } from "@/components/ui/toast";
 
 import { AppLayout } from "@/components/layouts/DashboardLayout";
@@ -49,7 +49,7 @@ function WalletPage() {
   const totalSpent = transactions
     .filter(
       (transaction) =>
-        transaction.type === "debit" && transaction.status === "Successful",
+        transaction.type === "debit" && transaction.status === "completed",
     )
     .reduce((sum, transaction) => sum + transaction.amount, 0);
 
@@ -87,7 +87,7 @@ function WalletPage() {
             <Button
               size="lg"
               className="h-11 min-w-0 flex-1 font-medium"
-              render={<Link to="/app/fund-wallet" />}
+              onClick={() => toast.add({ type: "info", description: "Fund wallet flow coming soon." })}
             >
               <HugeiconsIcon icon={PlusSignIcon} className="size-4" />
               Fund wallet

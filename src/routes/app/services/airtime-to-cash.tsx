@@ -240,7 +240,7 @@ function AirtimeToCashPage() {
                 <Label>Bank</Label>
                 <Select
                   value={values.bank}
-                  onValueChange={(value) => updateField("bank", value ?? "")}
+                  onValueChange={(value: string | null) => updateField("bank", value ?? "")}
                 >
                   <SelectTrigger className="w-full">
                     <SelectValue placeholder="Select your bank" />
